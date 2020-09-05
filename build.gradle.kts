@@ -3,8 +3,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm")
     id("org.sonarqube") version "3.0"
-    id("io.gitlab.arturbosch.detekt") version "1.11.0"
     id("com.adarshr.test-logger") version "2.1.0"
+    id("io.gitlab.arturbosch.detekt") version "1.11.0"
 }
 
 group = "io.overfullstack"
@@ -20,15 +20,12 @@ val arrowSnapshotVersion = "latest.integration"
 
 dependencies {
     implementation("io.arrow-kt:arrow-core:$arrowSnapshotVersion")
-    implementation("io.arrow-kt:arrow-fx:$arrowSnapshotVersion")
     implementation("io.arrow-kt:arrow-fx-coroutines:$arrowSnapshotVersion")
     implementation("io.github.microutils:kotlin-logging:+")
-    // All other dependencies for log4j2 are taken care by kotlin-logging, so you don't need the below
-    // implementation("org.slf4j:slf4j-api:+")
-    runtimeOnly("org.apache.logging.log4j:log4j-slf4j18-impl:+") // slf4j18 - 18 is required for newer version.
+    runtimeOnly("org.apache.logging.log4j:log4j-slf4j18-impl:+")
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:+")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:+")
+    testImplementation("io.kotest:kotest-runner-junit5:+")
+    testImplementation("io.kotest:kotest-assertions-core:+")
 }
 
 tasks.withType<KotlinCompile> {
